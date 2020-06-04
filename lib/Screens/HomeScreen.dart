@@ -6,9 +6,7 @@ import 'package:qrcodescanner/Screens/Navigation/home.dart';
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 class Home extends StatefulWidget {
@@ -18,19 +16,9 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   Uint8List bytes = Uint8List(0);
-  TextEditingController _inputController;
-  TextEditingController _outputController;
 
 
   int _selectedIndex = 0;
-
-
-  @override
-  initState() {
-    super.initState();
-    this._inputController = new TextEditingController();
-    this._outputController = new TextEditingController();
-  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -116,34 +104,6 @@ class HomeState extends State<Home> {
       ),
     );
 
-  }
-
-
-   Future scan() async {
-    String barcode = await scanner.scan();
-    this._outputController.text = barcode;
-  }
-
-  Future _scanPhoto() async {
-    String barcode = await scanner.scanPhoto();
-    this._outputController.text = barcode;
-  }
-
-  Future _scanPath(String path) async {
-    String barcode = await scanner.scanPath(path);
-    this._outputController.text = barcode;
-  }
-
-  Future _scanBytes() async {
-    File file = await ImagePicker.pickImage(source: ImageSource.camera);
-    Uint8List bytes = file.readAsBytesSync();
-    String barcode = await scanner.scanBytes(bytes);
-    this._outputController.text = barcode;
-  }
-
-  Future _generateBarCode(String inputCode) async {
-    Uint8List result = await scanner.generateBarCode(inputCode);
-    this.setState(() => this.bytes = result);
   }
 }
 

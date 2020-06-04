@@ -164,19 +164,47 @@ class _GenerateState extends State<Generate> {
               height: 30,
             ),
             SizedBox(
-              height: 120,
+              height: MediaQuery.of(context).size.height/6,
               child: InkWell(
                 onTap: ()=>_generateBarCode(this._inputController.text),
                 child: Card(
-                  child: Column(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 2,
-                        child: Image.asset('assets/images/generate_qrcode.png'),
-                      ),
-                      Divider(height: 20),
-                      Expanded(flex: 1, child: Text("Scan Photo")),
-                    ],
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                      color:  Color(0xff191A1D),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black,
+                          blurRadius:
+                          10.0,
+                          // has the effect of softening the shadow
+                          offset: Offset(
+                            7.0, // horizontal, move right 10
+                            7.0, // vertical, move down 10
+                          ),
+                        ),
+                        BoxShadow(
+                          color: Color(0xff292A2F),
+                          blurRadius:
+                          10.0,
+                          // has the effect of softening the shadow
+                          offset: Offset(
+                            -5.0, // horizontal, move right 10
+                            -5.0, // vertical, move down 10
+                          ),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 2,
+                          child: Image.asset('assets/images/generate_qrcode.png'),
+                        ),
+                        Divider(height: 20),
+                        Expanded(flex: 1, child: Text("Generate QR Code")),
+                      ],
+                    ),
                   ),
                 ),
               ),

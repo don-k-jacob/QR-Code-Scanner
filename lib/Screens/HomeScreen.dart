@@ -43,6 +43,7 @@ class HomeState extends State<Home> {
 
 
     return Scaffold(
+        backgroundColor:  Color(0xff191A1D),
         bottomNavigationBar: RaisedNavBar(context),
         body: page[_selectedIndex]
     );

@@ -6,22 +6,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
+import 'package:url_launcher/url_launcher.dart';
 
 class Scan extends StatefulWidget {
   @override
   _ScanState createState() => _ScanState();
 }
+bool haveUrl;
 
 class _ScanState extends State<Scan> {
+  Future<void> _launched;
   Uint8List bytes = Uint8List(0);
   TextEditingController _outputController;
   @override
   initState() {
     super.initState();
+    haveUrl=false;
     this._outputController = new TextEditingController();
-  }
-  bool haveUrl(){
-    return (_outputController.text.isEmpty)||_outputController.text.contains(".");
   }
   @override
   Widget build(BuildContext context) {
@@ -92,7 +93,7 @@ class _ScanState extends State<Scan> {
                       readOnly: true,
                       maxLines: 2,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.wrap_text,color: haveUrl()?Color(0xffb31217):Colors.grey,),
+                        prefixIcon: Icon(Icons.wrap_text,color: haveUrl?Color(0xffb31217):Colors.grey,),
                         helperText: 'The barcode or qrcode you scan will be displayed in this area.',
                         hintText: 'The barcode or qrcode you scan will be displayed in this area.',
                         hintStyle: TextStyle(fontSize: 15),
@@ -102,24 +103,31 @@ class _ScanState extends State<Scan> {
                     SizedBox(
                       height: 20,
                     ),
-                    haveUrl()?Center(
+                    haveUrl?Center(
                       child: GestureDetector(
                         onTap: (){
 
                         },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            gradient: LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: [
-                                  Color(0xffe52d27),
-                                  Color(0xffb31217),
-                                ]),
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              _launched = _launchInBrowser(this._outputController.text);
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topRight,
+                                  end: Alignment.bottomLeft,
+                                  colors: [
+                                    Color(0xffe52d27),
+                                    Color(0xffb31217),
+                                  ]),
+                            ),
+                            padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                            child: Text("Open"),
                           ),
-                          padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
-                          child: Text("Open"),
                         ),
                       ),
                     ):SizedBox(),
@@ -198,30 +206,37 @@ class _ScanState extends State<Scan> {
   Future _scan() async {
     String barcode = await scanner.scan();
     this._outputController.text = barcode;
+    if(barcode.contains("."))
+      {
+        setState(() {
+          haveUrl=true;
+        });
+      }
   }
 
   Future _scanPhoto() async {
     String barcode = await scanner.scanPhoto();
     this._outputController.text = barcode;
+    if(barcode.contains("."))
+    {
+      setState(() {
+        haveUrl=true;
+      });
+    }
   }
 
-  Future _scanPath(String path) async {
-    String barcode = await scanner.scanPath(path);
-    this._outputController.text = barcode;
+  Future<void> _launchInBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: false,
+        headers: <String, String>{'my_header_key': 'my_header_value'},
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
   }
-
-  Future _scanBytes() async {
-    File file = await ImagePicker.pickImage(source: ImageSource.camera);
-    Uint8List bytes = file.readAsBytesSync();
-    String barcode = await scanner.scanBytes(bytes);
-    this._outputController.text = barcode;
-  }
-
-  Future _generateBarCode(String inputCode) async {
-    Uint8List result = await scanner.generateBarCode(inputCode);
-    this.setState(() => this.bytes = result);
-  }
-
 }
 
 

@@ -31,7 +31,8 @@ dependencies:
   qrscan: ^0.2.17
   image_picker: ^0.6.7
   image_gallery_saver: ^1.2.2
-
+  url_launcher: ^5.4.10
+  fluttertoast: ^4.0.0
 
 dev_dependencies:
   flutter_test:

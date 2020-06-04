@@ -84,20 +84,20 @@ class HomeState extends State<Home> {
               _onItemTapped(1);
             },
           ),
+//          ButtonIcon(
+//            selectedIndex: _selectedIndex,
+//            index: 2,
+//            iconData: Icons.history,
+//            onTap: () {
+//              _onItemTapped(2);
+//            },
+//          ),
           ButtonIcon(
             selectedIndex: _selectedIndex,
             index: 2,
-            iconData: Icons.history,
-            onTap: () {
-              _onItemTapped(2);
-            },
-          ),
-          ButtonIcon(
-            selectedIndex: _selectedIndex,
-            index: 3,
             iconData: Icons.settings,
             onTap: () {
-              _onItemTapped(3);
+              _onItemTapped(2);
             },
           ),
         ],
@@ -110,7 +110,7 @@ class HomeState extends State<Home> {
 List<dynamic> page=[
   Scan(),
   Generate(),
-  History(),
+//  History(),
   Settings()
 ];
 class ButtonIcon extends StatelessWidget {

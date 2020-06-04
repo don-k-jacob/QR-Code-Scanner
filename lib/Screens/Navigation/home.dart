@@ -21,7 +21,7 @@ class _ScanState extends State<Scan> {
     this._outputController = new TextEditingController();
   }
   bool haveUrl(){
-    return _outputController.text.isEmpty&&_outputController.text.contains(".");
+    return (_outputController.text.isEmpty)||_outputController.text.contains(".");
   }
   @override
   Widget build(BuildContext context) {
@@ -102,7 +102,7 @@ class _ScanState extends State<Scan> {
                     SizedBox(
                       height: 20,
                     ),
-                    haveUrl()?SizedBox():Center(
+                    haveUrl()?Center(
                       child: GestureDetector(
                         onTap: (){
 
@@ -122,7 +122,7 @@ class _ScanState extends State<Scan> {
                           child: Text("Open"),
                         ),
                       ),
-                    ),
+                    ):SizedBox(),
                     SizedBox(
                       height: MediaQuery.of(context).size.height/15,
                     ),

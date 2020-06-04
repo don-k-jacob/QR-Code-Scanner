@@ -49,10 +49,10 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.black,
       body: new Center(
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: 200,
+          width: 200,
           decoration: BoxDecoration(
-              image: DecorationImage(image: AssetImage("assets/images/scanner.png"),
+              image: DecorationImage(image: AssetImage("assets/images/scan.png"),
                   fit: BoxFit.fitWidth)
           ),),
       ),

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:url_launcher/url_launcher.dart';
@@ -234,6 +235,15 @@ class _ScanState extends State<Scan> {
         headers: <String, String>{'my_header_key': 'my_header_value'},
       );
     } else {
+      final snackBar = SnackBar(
+        backgroundColor: Colors.black,
+        content: Text('Could not launch $url',style: TextStyle(
+          color: Colors.white
+        ),
+          textAlign: TextAlign.center,
+        ),
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
       throw 'Could not launch $url';
     }
   }

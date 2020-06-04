@@ -27,141 +27,172 @@ class _GenerateState extends State<Generate> {
   Widget _qrCodeWidget(Uint8List bytes, BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(20),
-      child: Card(
-        elevation: 6,
-        child: Container(
-          decoration: BoxDecoration(
-            color:  Color(0xff191A1D),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black,
-                blurRadius:
-                10.0,
-                // has the effect of softening the shadow
-                offset: Offset(
-                  7.0, // horizontal, move right 10
-                  7.0, // vertical, move down 10
-                ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color:  Color(0xff191A1D),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black,
+              blurRadius:
+              10.0,
+              // has the effect of softening the shadow
+              offset: Offset(
+                7.0, // horizontal, move right 10
+                7.0, // vertical, move down 10
               ),
-              BoxShadow(
-                color: Color(0xff292A2F),
-                blurRadius:
-                10.0,
-                // has the effect of softening the shadow
-                offset: Offset(
-                  -5.0, // horizontal, move right 10
-                  -5.0, // vertical, move down 10
-                ),
+            ),
+            BoxShadow(
+              color: Color(0xff292A2F),
+              blurRadius:
+              10.0,
+              // has the effect of softening the shadow
+              offset: Offset(
+                -5.0, // horizontal, move right 10
+                -5.0, // vertical, move down 10
               ),
-            ],
-          ),
-          child: Column(
-            children: <Widget>[
-              Container(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Icon(Icons.verified_user, size: 18, color: Colors.green),
-                    Text('  Generate Qrcode', style: TextStyle(fontSize: 15)),
-                    Spacer(),
-                    Icon(Icons.more_vert, size: 18, color: Colors.white),
-                  ],
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+            ),
+          ],
+        ),
+        child: Column(
+          children: <Widget>[
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Icon(Icons.verified_user, size: 18, color: Colors.green),
+                  Text('  Generate Qrcode', style: TextStyle(fontSize: 15)),
+                ],
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
 
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        colors: [
-                          Color(0xffe52d27),
-                          Color(0xffb31217),
-                        ]),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(4), topRight: Radius.circular(4)),
-                ),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [
+                        Color(0xffe52d27),
+                        Color(0xffb31217),
+                      ]),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10), topRight: Radius.circular(10)),
               ),
-              Padding(
-                padding:
-                    EdgeInsets.only(left: 40, right: 40, top: 30, bottom: 10),
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 190,
-                      child: bytes.isEmpty
-                          ? Center(
-                              child: Text('Empty code ... ',
-                                  style: TextStyle(color: Colors.white)),
-                            )
-                          : Image.memory(bytes),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 7, left: 25, right: 25),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Expanded(
-                            flex: 5,
-                            child: GestureDetector(
+            ),
+            Padding(
+              padding:
+                  EdgeInsets.only(left: 40, right: 40, top: 30, bottom: 10),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 190,
+                    child: bytes.isEmpty
+                        ? Center(
+                            child: Text('Empty code ... ',
+                                style: TextStyle(color: Colors.white)),
+                          )
+                        : Image.memory(bytes),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 7, left: 25, right: 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        GestureDetector(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: bytes.isEmpty?LinearGradient(
+                                  begin: Alignment.topRight,
+                                  end: Alignment.bottomLeft,
+                                  colors: [
+                                    Color(0x22e52d27),
+                                    Color(0x22e52d27),
+                                  ]):LinearGradient(
+                                  begin: Alignment.topRight,
+                                  end: Alignment.bottomLeft,
+                                  colors: [
+                                    Color(0xffe52d27),
+                                    Color(0xffb31217),
+                                  ]),
+                              borderRadius: BorderRadius.circular(5)),
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            width: MediaQuery.of(context).size.width/4,
+                            child: Center(
                               child: Text(
                                 'remove',
                                 style:
-                                    TextStyle(fontSize: 15, color: Colors.blue),
+                                    TextStyle(fontSize: 15),
                                 textAlign: TextAlign.left,
                               ),
-                              onTap: () =>
-                                  this.setState(() => this.bytes = Uint8List(0)),
                             ),
                           ),
-                          Text('|',
+                          onTap: () =>
+                              this.setState(() => this.bytes = Uint8List(0)),
+                        ),
+
+                        GestureDetector(
+                          onTap: () async {
+                            final success =
+                                await ImageGallerySaver.saveImage(this.bytes);
+                            print(success+"\n\n\n");
+                            if (success!=null) {
+                              final snackBar = SnackBar(
+                                backgroundColor: Colors.black,
+                                content: Text('Successful Preservation!',style: TextStyle(
+                                    color: Colors.white
+                                ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              );
+                              Scaffold.of(context).showSnackBar(snackBar);
+                            } else {
+                              final snackBar = SnackBar(
+                                backgroundColor: Colors.black,
+                                content: Text('Save failed!',style: TextStyle(
+                                    color: Colors.white
+                                ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              );
+                              Scaffold.of(context).showSnackBar(snackBar);
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                gradient: bytes.isEmpty?LinearGradient(
+                                    begin: Alignment.topRight,
+                                    end: Alignment.bottomLeft,
+                                    colors: [
+                                      Color(0x22e52d27),
+                                      Color(0x22e52d27),
+                                    ]):LinearGradient(
+                                    begin: Alignment.topRight,
+                                    end: Alignment.bottomLeft,
+                                    colors: [
+                                      Color(0xffe52d27),
+                                      Color(0xffb31217),
+                                    ]),
+                                borderRadius: BorderRadius.circular(5)),
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            width: MediaQuery.of(context).size.width/4,
+                            child: Text(
+                              'save',
                               style:
-                                  TextStyle(fontSize: 15, color: Colors.white)),
-                          Expanded(
-                            flex: 5,
-                            child: GestureDetector(
-                              onTap: () async {
-                                final success =
-                                    await ImageGallerySaver.saveImage(this.bytes);
-                                SnackBar snackBar;
-                                if (success) {
-                                  snackBar = new SnackBar(
-                                      content:
-                                          new Text('Successful Preservation!'));
-                                  Scaffold.of(context).showSnackBar(snackBar);
-                                } else {
-                                  snackBar = new SnackBar(
-                                      content: new Text('Save failed!'));
-                                }
-                              },
-                              child: Text(
-                                'save',
-                                style:
-                                    TextStyle(fontSize: 15, color: Colors.blue),
-                                textAlign: TextAlign.right,
-                              ),
+                                  TextStyle(fontSize: 15,),
+                              textAlign: TextAlign.center,
                             ),
                           ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
-              Divider(height: 5,color: Colors.white,),
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.history, size: 16, color: Colors.white),
-                    Text('  Generate History',
-                        style: TextStyle(fontSize: 14, color: Colors.white)),
-                    Spacer(),
-                    Icon(Icons.chevron_right, size: 16, color: Colors.white),
-                  ],
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
-              )
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 20,
+            )
+          ],
         ),
       ),
     );
@@ -171,79 +202,84 @@ class _GenerateState extends State<Generate> {
   Widget build(BuildContext context) {
     return Container(
       child: SafeArea(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 50,
-            ),
-            _qrCodeWidget(this.bytes, context),
-            SizedBox(
-              height: 30,
-            ),
-            TextField(
-              controller: this._inputController,
-              keyboardType: TextInputType.url,
-              textInputAction: TextInputAction.go,
-              onSubmitted: (value) => _generateBarCode(value),
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.text_fields),
-                helperText: 'Please input your code to generage qrcode image.',
-                hintText: 'Please Input Your Code',
-                hintStyle: TextStyle(fontSize: 15),
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 7, vertical: 15),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 50,
               ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height/6,
-              child: InkWell(
-                onTap: ()=>_generateBarCode(this._inputController.text),
-                child: Card(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      color:  Color(0xff191A1D),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black,
-                          blurRadius:
-                          10.0,
-                          // has the effect of softening the shadow
-                          offset: Offset(
-                            7.0, // horizontal, move right 10
-                            7.0, // vertical, move down 10
+              _qrCodeWidget(this.bytes, context),
+              SizedBox(
+                height: 30,
+              ),
+              TextField(
+                controller: this._inputController,
+                keyboardType: TextInputType.url,
+                textInputAction: TextInputAction.go,
+                onSubmitted: (value) => _generateBarCode(value),
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.text_fields),
+                  helperText: 'Please input your code to generage qrcode image.',
+                  hintText: 'Please Input Your Code',
+                  hintStyle: TextStyle(fontSize: 15),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 7, vertical: 15),
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height/6,
+                child: InkWell(
+                  onTap: ()=>_generateBarCode(this._inputController.text),
+                  child: Card(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        color:  Color(0xff191A1D),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black,
+                            blurRadius:
+                            10.0,
+                            // has the effect of softening the shadow
+                            offset: Offset(
+                              7.0, // horizontal, move right 10
+                              7.0, // vertical, move down 10
+                            ),
                           ),
-                        ),
-                        BoxShadow(
-                          color: Color(0xff292A2F),
-                          blurRadius:
-                          10.0,
-                          // has the effect of softening the shadow
-                          offset: Offset(
-                            -5.0, // horizontal, move right 10
-                            -5.0, // vertical, move down 10
+                          BoxShadow(
+                            color: Color(0xff292A2F),
+                            blurRadius:
+                            10.0,
+                            // has the effect of softening the shadow
+                            offset: Offset(
+                              -5.0, // horizontal, move right 10
+                              -5.0, // vertical, move down 10
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 2,
-                          child: Image.asset('assets/images/generate_qrcode.png'),
-                        ),
-                        Divider(height: 20),
-                        Expanded(flex: 1, child: Text("Generate QR Code")),
-                      ],
+                        ],
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          Expanded(
+                            flex: 2,
+                            child: Image.asset('assets/images/generate_qrcode.png'),
+                          ),
+                          Divider(height: 20),
+                          Expanded(flex: 1, child: Text("Generate QR Code")),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+              SizedBox(
+                height: 20,
+              )
+            ],
+          ),
         ),
       ),
     );

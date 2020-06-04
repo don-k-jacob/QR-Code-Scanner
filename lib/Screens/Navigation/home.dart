@@ -60,11 +60,6 @@ class _ScanState extends State<Scan> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _scanBytes(),
-        tooltip: 'Take a Photo',
-        child: const Icon(Icons.camera_alt),
-      ),
     );
   }
 
@@ -81,7 +76,7 @@ class _ScanState extends State<Scan> {
                 children: <Widget>[
                   Expanded(
                     flex: 2,
-                    child: Image.asset('images/scanner.png'),
+                    child: Image.asset('assets/images/scan.png'),
                   ),
                   Divider(height: 20),
                   Expanded(flex: 1, child: Text("Scan")),
@@ -99,7 +94,7 @@ class _ScanState extends State<Scan> {
                 children: <Widget>[
                   Expanded(
                     flex: 2,
-                    child: Image.asset('images/albums.png'),
+                    child: Image.asset('assets/images/albums.png'),
                   ),
                   Divider(height: 20),
                   Expanded(flex: 1, child: Text("Scan Photo")),

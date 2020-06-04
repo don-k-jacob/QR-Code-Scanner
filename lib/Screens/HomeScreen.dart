@@ -216,8 +216,8 @@ class RadiantGradientMask extends StatelessWidget {
         begin: Alignment.topRight,
         end: Alignment.bottomLeft,
         colors: [
-          Color(0xffFF61DC),
-          Color(0xffFF6161),
+          Color(0xffe52d27),
+          Color(0xffb31217),
         ],
         tileMode: TileMode.mirror,
       ).createShader(bounds),

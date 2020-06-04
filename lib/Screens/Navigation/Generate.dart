@@ -163,10 +163,24 @@ class _GenerateState extends State<Generate> {
             SizedBox(
               height: 30,
             ),
-            FlatButton(
-                onPressed: () => _generateBarCode(this._inputController.text),
-                child: Text("generate"),
-                color: Colors.red,),
+            SizedBox(
+              height: 120,
+              child: InkWell(
+                onTap: ()=>_generateBarCode(this._inputController.text),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: Image.asset('assets/images/generate_qrcode.png'),
+                      ),
+                      Divider(height: 20),
+                      Expanded(flex: 1, child: Text("Scan Photo")),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

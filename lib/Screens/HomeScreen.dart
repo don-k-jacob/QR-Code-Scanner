@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
 
  static final MobileAdTargetingInfo targetingInfo= new MobileAdTargetingInfo(
-   testDevices: <String>[testDevice],
+   testDevices: <String>[],
    keywords: <String>['scanner','recorder','games','photo'],
    birthday: new DateTime.now(),
   childDirected: true,
@@ -25,8 +25,25 @@ class HomeState extends State<Home> {
   BannerAd _bannerAd;
   InterstitialAd _interstitialAd;
 
-  
-
+  BannerAd createBannerAd(){
+    return new BannerAd(
+        adUnitId: BannerAd.testAdUnitId,
+        size: AdSize.banner,
+        targetingInfo: targetingInfo,
+        listener: (MobileAdEvent event){
+          print("Banner event: $event");
+        }
+    );
+  }
+ InterstitialAd createInterstitialAd(){
+   return new InterstitialAd(
+       adUnitId: InterstitialAd.testAdUnitId,
+       targetingInfo: targetingInfo,
+       listener: (MobileAdEvent event){
+         print("Interstitial event: $event");
+       }
+   );
+ }
   Uint8List bytes = Uint8List(0);
 
   int _selectedIndex = 0;
@@ -36,7 +53,20 @@ class HomeState extends State<Home> {
       _selectedIndex = index;
     });
   }
-
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
+    _bannerAd= createBannerAd()..load()..show();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _bannerAd.dispose();
+    _interstitialAd.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
 

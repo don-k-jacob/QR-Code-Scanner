@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -16,12 +17,48 @@ class _GenerateState extends State<Generate> {
     Uint8List result = await scanner.generateBarCode(inputCode);
     this.setState(() => this.bytes = result);
   }
+  BannerAd _bannerAd;
+  InterstitialAd _interstitialAd;
+  InterstitialAd createInterstitialAd(){
+    return new InterstitialAd(
+        adUnitId: "ca-app-pub-8002601004224879/4896201595",
+        targetingInfo: targetingInfo,
+        listener: (MobileAdEvent event){
+          print("Interstitial event: $event");
+        }
+    );
+  }
+  static final MobileAdTargetingInfo targetingInfo= new MobileAdTargetingInfo(
+    testDevices: <String>[],
+    keywords: <String>['scanner','recorder','games','photo'],
+    birthday: new DateTime.now(),
+    childDirected: true,
+  );
 
+  BannerAd createBannerAd(){
+    return new BannerAd(
+        adUnitId: "ca-app-pub-8002601004224879/4910505856",
+        size: AdSize.banner,
+        targetingInfo: targetingInfo,
+        listener: (MobileAdEvent event){
+          print("Banner event: $event");
+        }
+    );
+  }
   @override
   initState() {
+    FirebaseAdMob.instance.initialize(appId: "ca-app-pub-8002601004224879~3774691612");
+    _bannerAd= createBannerAd()..load()..show(anchorOffset: 100);
     super.initState();
     this._inputController = new TextEditingController();
     this._outputController = new TextEditingController();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _bannerAd.dispose();
+    _interstitialAd.dispose();
+    super.dispose();
   }
 
   Widget _qrCodeWidget(Uint8List bytes, BuildContext context) {

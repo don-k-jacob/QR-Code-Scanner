@@ -1,31 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:qrcodescanner/Screens/Navigation/Generate.dart';
-import 'package:qrcodescanner/Screens/Navigation/History.dart';
 import 'package:qrcodescanner/Screens/Navigation/Settings.dart';
 import 'package:qrcodescanner/Screens/Navigation/home.dart';
-import 'dart:async';
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
+import 'package:firebase_admob/firebase_admob.dart';
+
+const String testDevice='';
 class Home extends StatefulWidget {
   @override
   HomeState createState() => HomeState();
 }
 
 class HomeState extends State<Home> {
-  Uint8List bytes = Uint8List(0);
 
+ static final MobileAdTargetingInfo targetingInfo= new MobileAdTargetingInfo(
+   testDevices: <String>[],
+   keywords: <String>['scanner','recorder','games','photo'],
+   birthday: new DateTime.now(),
+  childDirected: true,
+ );
+
+
+  BannerAd _bannerAd;
+  InterstitialAd _interstitialAd;
+
+  BannerAd createBannerAd(){
+    return new BannerAd(
+        adUnitId: "ca-app-pub-8002601004224879/4910505856",
+        size: AdSize.banner,
+        targetingInfo: targetingInfo,
+        listener: (MobileAdEvent event){
+          print("Banner event: $event");
+        }
+    );
+  }
+ InterstitialAd createInterstitialAd(){
+   return new InterstitialAd(
+       adUnitId: "ca-app-pub-8002601004224879/4896201595",
+       targetingInfo: targetingInfo,
+       listener: (MobileAdEvent event){
+         print("Interstitial event: $event");
+       }
+   );
+ }
+  Uint8List bytes = Uint8List(0);
 
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
+      createInterstitialAd()..load()..show();
       _selectedIndex = index;
     });
   }
-
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseAdMob.instance.initialize(appId: "ca-app-pub-8002601004224879~3774691612");
+    _bannerAd= createBannerAd()..load()..show(anchorType: AnchorType.top, anchorOffset: -60);
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _bannerAd.dispose();
+    _interstitialAd.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -33,7 +75,7 @@ class HomeState extends State<Home> {
     return Scaffold(
         backgroundColor:  Color(0xff191A1D),
         bottomNavigationBar: RaisedNavBar(context),
-        body: page[_selectedIndex]
+        body: page[_selectedIndex],
     );
   }
 

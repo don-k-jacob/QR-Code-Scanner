@@ -1,11 +1,8 @@
 
 import 'dart:async';
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -94,6 +91,10 @@ class _ScanState extends State<Scan> {
                       readOnly: true,
                       maxLines: 2,
                       decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide.none,
+                        ),
                         prefixIcon: Icon(Icons.wrap_text,color: haveUrl?Color(0xffb31217):Colors.grey,),
                         helperText: 'The barcode or qrcode you scan will be displayed in this area.',
                         hintText: 'The barcode or qrcode you scan will be displayed in this area.',

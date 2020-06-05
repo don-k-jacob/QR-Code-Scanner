@@ -218,6 +218,11 @@ class _GenerateState extends State<Generate> {
                 textInputAction: TextInputAction.go,
                 onSubmitted: (value) => _generateBarCode(value),
                 decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Colors.red),
+                  ),
+
                   prefixIcon: Icon(Icons.text_fields),
                   helperText: 'Please input your code to generage qrcode image.',
                   hintText: 'Please Input Your Code',

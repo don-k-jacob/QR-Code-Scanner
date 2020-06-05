@@ -76,7 +76,7 @@ class _SettingsState extends State<Settings> {
                 });
               },
               child: Tile(iconData: Icons.star,
-                txt: "Rate US",
+                txt: "Rate Us",
               ),
             ),
             Divider(
@@ -89,7 +89,7 @@ class _SettingsState extends State<Settings> {
               },
               child: Tile(
                 iconData: Icons.info,
-                txt: "About US",
+                txt: "About Us",
               ),
             ),
             Divider(

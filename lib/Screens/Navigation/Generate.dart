@@ -99,7 +99,7 @@ class _GenerateState extends State<Generate> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Icon(Icons.verified_user, size: 18, color: Colors.green),
-                  Text('  Generate Qrcode', style: TextStyle(fontSize: 15)),
+                  Text('Generate Qrcode', style: TextStyle(fontSize: 15)),
                 ],
               ),
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
@@ -156,7 +156,7 @@ class _GenerateState extends State<Generate> {
                             width: MediaQuery.of(context).size.width/4,
                             child: Center(
                               child: Text(
-                                'remove',
+                                'Sheare',
                                 style:
                                     TextStyle(fontSize: 15),
                                 textAlign: TextAlign.left,

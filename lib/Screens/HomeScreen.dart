@@ -1,22 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:qrcodescanner/Screens/Navigation/Generate.dart';
-import 'package:qrcodescanner/Screens/Navigation/History.dart';
 import 'package:qrcodescanner/Screens/Navigation/Settings.dart';
 import 'package:qrcodescanner/Screens/Navigation/home.dart';
-import 'dart:async';
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
+import 'package:firebase_admob/firebase_admob.dart';
+
+const String testDevice='';
 class Home extends StatefulWidget {
   @override
   HomeState createState() => HomeState();
 }
 
 class HomeState extends State<Home> {
-  Uint8List bytes = Uint8List(0);
 
+ static final MobileAdTargetingInfo targetingInfo= new MobileAdTargetingInfo(
+   testDevices: <String>[testDevice],
+   keywords: <String>['scanner','recorder','games','photo'],
+   birthday: new DateTime.now(),
+  childDirected: true,
+ );
+
+
+  BannerAd _bannerAd;
+  InterstitialAd _interstitialAd;
+
+  
+
+  Uint8List bytes = Uint8List(0);
 
   int _selectedIndex = 0;
 

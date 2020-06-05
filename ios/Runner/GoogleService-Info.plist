@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>114469829313-pppevclhkrcb3bgq0adpoo286n6e2sb4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.114469829313-pppevclhkrcb3bgq0adpoo286n6e2sb4</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAQ5c_fqAIRBRdAdRSStF61GGPXjimEwiQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>114469829313</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.tatos.qrcodescanner</string>
+	<key>PROJECT_ID</key>
+	<string>qr-code-scanner-1e720</string>
+	<key>STORAGE_BUCKET</key>
+	<string>qr-code-scanner-1e720.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:114469829313:ios:e10045c00a041ca247b240</string>
+	<key>DATABASE_URL</key>
+	<string>https://qr-code-scanner-1e720.firebaseio.com</string>
+</dict>
+</plist>

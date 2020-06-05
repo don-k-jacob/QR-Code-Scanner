@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qrcodescanner/Screens/HomeScreen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -7,6 +8,8 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  Future<void> _launched;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,7 +71,9 @@ class _SettingsState extends State<Settings> {
             ),
             GestureDetector(
               onTap: (){
-
+                setState(() {
+                  _launched = _launchInBrowser("");
+                });
               },
               child: Tile(iconData: Icons.star,
                 txt: "Rate US",
@@ -78,7 +83,9 @@ class _SettingsState extends State<Settings> {
             ),
             GestureDetector(
               onTap: (){
-
+                setState(() {
+                  _launched = _launchInBrowser("https://www.donkjacob.me/");
+                });
               },
               child: Tile(
                 iconData: Icons.info,
@@ -89,7 +96,9 @@ class _SettingsState extends State<Settings> {
             ),
             GestureDetector(
               onTap: (){
-
+                setState(() {
+                  _launched = _launchInBrowser("https://www.donkjacob.me/");
+                });
               },
               child: Tile(iconData: Icons.note,
                 txt: "Privacy Policy",
@@ -99,17 +108,69 @@ class _SettingsState extends State<Settings> {
             ),
             GestureDetector(
               onTap: (){
-
+                setState(() {
+                  _launched = _launchInBrowser("https://www.donkjacob.me/");
+                });
               },
               child: Tile(iconData: Icons.business                                                                                                                                                                                                                                                                                                                                                                                                                                              ,
                 txt: "Terms of Service",
               ),
             ),
+            Spacer(),
+            Text("Version 1.0",style:TextStyle(
+              fontSize: 20
+            ),),
+            SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
+              onTap: (){
+                setState(() {
+                  _launched = _launchInBrowser("https://www.donkjacob.me/");
+                });
+              },
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("developded with  "),
+                    Icon(Icons.favorite,color: Color(0xffb31217),),
+                    Text("  by don_k_jacob"),
+
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            )
           ],
         ),
       ),
     );
   }
+  Future<void> _launchInBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: false,
+        headers: <String, String>{'my_header_key': 'my_header_value'},
+      );
+    } else {
+      final snackBar = SnackBar(
+        backgroundColor: Colors.black,
+        content: Text('Could not launch $url',style: TextStyle(
+            color: Colors.white
+        ),
+          textAlign: TextAlign.center,
+        ),
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
+      throw 'Could not launch $url';
+    }
+  }
+
 }
 class Tile extends StatelessWidget {
   final IconData iconData;

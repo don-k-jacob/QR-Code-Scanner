@@ -156,7 +156,7 @@ class _GenerateState extends State<Generate> {
                             width: MediaQuery.of(context).size.width/4,
                             child: Center(
                               child: Text(
-                                'remove',
+                                'Share',
                                 style:
                                     TextStyle(fontSize: 15),
                                 textAlign: TextAlign.left,

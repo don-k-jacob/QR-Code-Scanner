@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qrcodescanner/Screens/HomeScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_share_file/flutter_share_file.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -97,7 +98,7 @@ class _SettingsState extends State<Settings> {
             GestureDetector(
               onTap: (){
                 setState(() {
-                  _launched = _launchInBrowser("https://www.donkjacob.me/");
+                  _launched = _launchInBrowser("");
                 });
               },
               child: Tile(iconData: Icons.note,
@@ -109,7 +110,7 @@ class _SettingsState extends State<Settings> {
             GestureDetector(
               onTap: (){
                 setState(() {
-                  _launched = _launchInBrowser("https://www.donkjacob.me/");
+                  _launched = _launchInBrowser("");
                 });
               },
               child: Tile(iconData: Icons.business                                                                                                                                                                                                                                                                                                                                                                                                                                              ,

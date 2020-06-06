@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:firebase_admob/firebase_admob.dart';
+import 'package:flutter_share_file/flutter_share_file.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -8,7 +9,6 @@ class Generate extends StatefulWidget {
   @override
   _GenerateState createState() => _GenerateState();
 }
-
 class _GenerateState extends State<Generate> {
   Uint8List bytes = Uint8List(0);
   TextEditingController _inputController;
@@ -34,7 +34,7 @@ class _GenerateState extends State<Generate> {
     birthday: new DateTime.now(),
     childDirected: true,
   );
-
+  final success;
   BannerAd createBannerAd(){
     return new BannerAd(
         adUnitId: "ca-app-pub-8002601004224879/4910505856",
@@ -156,15 +156,17 @@ class _GenerateState extends State<Generate> {
                             width: MediaQuery.of(context).size.width/4,
                             child: Center(
                               child: Text(
-                                'Sheare',
+                                'Share',
                                 style:
                                     TextStyle(fontSize: 15),
                                 textAlign: TextAlign.left,
                               ),
                             ),
                           ),
-                          onTap: () =>
-                              this.setState(() => this.bytes = Uint8List(0)),
+                          onTap: () {
+//                            this.setState(() => this.bytes = Uint8List(0));
+                            FlutterShareFile.shareImage(, "image.png");
+                          }
                         ),
 
                         GestureDetector(

@@ -34,6 +34,7 @@ dependencies:
   url_launcher: ^5.4.10
   fluttertoast: ^4.0.0
   firebase_admob: ^0.5.2
+  share: ^0.6.3+6
 
 dev_dependencies:
   flutter_test:

@@ -36,13 +36,13 @@ class _ScanState extends State<Scan> {
   }
 
   BannerAd createBannerAd(){
-    return new BannerAd(
-        adUnitId: "ca-app-pub-8002601004224879/4910505856",
-        size: AdSize.banner,
-        targetingInfo: targetingInfo,
-        listener: (MobileAdEvent event){
-          print("Banner event: $event");
-        }
+    return BannerAd(
+      adUnitId: BannerAd.testAdUnitId,
+      size: AdSize.banner,
+      targetingInfo: targetingInfo,
+      listener: (MobileAdEvent event) {
+        print("BannerAd event $event");
+      },
     );
   }
   Future<void> _launched;

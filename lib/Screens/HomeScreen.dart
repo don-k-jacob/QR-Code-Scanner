@@ -27,7 +27,7 @@ class HomeState extends State<Home> {
 
   BannerAd createBannerAd(){
     return new BannerAd(
-        adUnitId: "ca-app-pub-8002601004224879/4910505856",
+        adUnitId: BannerAd.testAdUnitId,
         size: AdSize.banner,
         targetingInfo: targetingInfo,
         listener: (MobileAdEvent event){
@@ -37,7 +37,7 @@ class HomeState extends State<Home> {
   }
  InterstitialAd createInterstitialAd(){
    return new InterstitialAd(
-       adUnitId: "ca-app-pub-8002601004224879/4896201595",
+       adUnitId: InterstitialAd.testAdUnitId,
        targetingInfo: targetingInfo,
        listener: (MobileAdEvent event){
          print("Interstitial event: $event");

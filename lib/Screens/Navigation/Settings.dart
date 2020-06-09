@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qrcodescanner/Screens/HomeScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_share_file/flutter_share_file.dart';
 
 class Settings extends StatefulWidget {
   @override

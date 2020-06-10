@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -7,6 +8,7 @@ class Generate extends StatefulWidget {
   @override
   _GenerateState createState() => _GenerateState();
 }
+
 class _GenerateState extends State<Generate> {
   Uint8List bytes = Uint8List(0);
   TextEditingController _inputController;
@@ -15,7 +17,6 @@ class _GenerateState extends State<Generate> {
     Uint8List result = await scanner.generateBarCode(inputCode);
     this.setState(() => this.bytes = result);
   }
-
   @override
   initState() {
 
@@ -67,7 +68,7 @@ class _GenerateState extends State<Generate> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Icon(Icons.verified_user, size: 18, color: Colors.green),
-                  Text('Generate Qrcode', style: TextStyle(fontSize: 15)),
+                  Text('  Generate Qrcode', style: TextStyle(fontSize: 15)),
                 ],
               ),
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
@@ -131,6 +132,7 @@ class _GenerateState extends State<Generate> {
                               ),
                             ),
                           ),
+
                           onTap: () async{
                             await FlutterShare.shareFile(
                               title: 'Example share',
@@ -139,6 +141,7 @@ class _GenerateState extends State<Generate> {
                             );
 //                            this.setState(() => this.bytes = Uint8List(0));
                           }
+
                         ),
 
                         GestureDetector(

@@ -76,7 +76,7 @@ class _SettingsState extends State<Settings> {
                 });
               },
               child: Tile(iconData: Icons.star,
-                txt: "Rate Us",
+                txt: "Rate US",
               ),
             ),
             Divider(
@@ -89,7 +89,7 @@ class _SettingsState extends State<Settings> {
               },
               child: Tile(
                 iconData: Icons.info,
-                txt: "About Us",
+                txt: "About US",
               ),
             ),
             Divider(
@@ -97,7 +97,7 @@ class _SettingsState extends State<Settings> {
             GestureDetector(
               onTap: (){
                 setState(() {
-                  _launched = _launchInBrowser("");
+                  _launched = _launchInBrowser("https://www.donkjacob.me/");
                 });
               },
               child: Tile(iconData: Icons.note,
@@ -109,7 +109,7 @@ class _SettingsState extends State<Settings> {
             GestureDetector(
               onTap: (){
                 setState(() {
-                  _launched = _launchInBrowser("");
+                  _launched = _launchInBrowser("https://www.donkjacob.me/");
                 });
               },
               child: Tile(iconData: Icons.business                                                                                                                                                                                                                                                                                                                                                                                                                                              ,

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 const String testDevice='';
 
 class Scan extends StatefulWidget {
@@ -15,11 +16,42 @@ bool haveUrl;
 
 class _ScanState extends State<Scan> {
 
+  static final MobileAdTargetingInfo targetingInfo= new MobileAdTargetingInfo(
+    testDevices: <String>[],
+    keywords: <String>['scanner','recorder','games','photo'],
+    birthday: new DateTime.now(),
+    childDirected: true,
+  );
+
+  BannerAd _bannerAd;
+  InterstitialAd _interstitialAd;
+  InterstitialAd createInterstitialAd(){
+    return new InterstitialAd(
+        adUnitId: "ca-app-pub-8002601004224879/4896201595",
+        targetingInfo: targetingInfo,
+        listener: (MobileAdEvent event){
+          print("Interstitial event: $event");
+        }
+    );
+  }
+
+  BannerAd createBannerAd(){
+    return BannerAd(
+      adUnitId: BannerAd.testAdUnitId,
+      size: AdSize.banner,
+      targetingInfo: targetingInfo,
+      listener: (MobileAdEvent event) {
+        print("BannerAd event $event");
+      },
+    );
+  }
   Future<void> _launched;
   Uint8List bytes = Uint8List(0);
   TextEditingController _outputController;
   @override
   initState() {
+    FirebaseAdMob.instance.initialize(appId:"ca-app-pub-8002601004224879~3774691612");
+    _bannerAd= createBannerAd()..load()..show(anchorOffset: 100);
     super.initState();
     haveUrl=false;
     this._outputController = new TextEditingController();
@@ -27,6 +59,8 @@ class _ScanState extends State<Scan> {
   @override
   void dispose() {
     // TODO: implement dispose
+    _bannerAd.dispose();
+    _interstitialAd.dispose();
     super.dispose();
   }
   @override
@@ -49,6 +83,7 @@ class _ScanState extends State<Scan> {
                       child: InkWell(
                         onTap:(){
                           _scan();
+                          _interstitialAd..load()..show();
                         },
                         child: Card(
                           child: Container(

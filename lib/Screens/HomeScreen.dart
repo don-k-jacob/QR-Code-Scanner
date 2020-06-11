@@ -58,8 +58,8 @@ class HomeState extends State<Home> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
-    _bannerAd= createBannerAd()..load()..show(anchorType: AnchorType.top/);
+    FirebaseAdMob.instance.initialize(appId: "ca-app-pub-8002601004224879~3774691612");
+    _bannerAd= createBannerAd()..load()..show(anchorType: AnchorType.top, anchorOffset: -60);
   }
   @override
   void dispose() {

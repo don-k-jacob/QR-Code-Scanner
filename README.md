@@ -1,6 +1,13 @@
-# qrcodescanner
+# QR-Code-Scanner
 
-A new Flutter application.
+its An Application to scan and generate QR-Codes.
+
+# Screen Shots 
+
+![image](https://github.com/don-k-jacob/QR-Code-Scanner/blob/master/screenshot/photo_2020-06-06%2018.34.11.jpeg)
+![image](https://github.com/don-k-jacob/QR-Code-Scanner/blob/master/screenshot/photo_2020-06-06%2018.34.15.jpeg)
+![image](https://github.com/don-k-jacob/QR-Code-Scanner/blob/master/screenshot/photo_2020-06-06%2018.34.24.jpeg)
+![image](https://github.com/don-k-jacob/QR-Code-Scanner/blob/master/screenshot/photo_2020-06-06%2020.32.34.jpeg)
 
 ## Getting Started
 

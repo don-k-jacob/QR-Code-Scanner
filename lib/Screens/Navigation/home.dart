@@ -233,7 +233,7 @@ class _ScanState extends State<Scan> {
           );
         },
       ),
-    );T
+    );
   }
 
   Widget _buttonGroup() {
